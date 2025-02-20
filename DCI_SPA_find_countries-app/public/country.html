@@ -4,10 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Country Details</title>
-    <script defer src="/src/country.ts"></script>
+    <script defer type="module" src="/country.ts"></script>
+    <link rel="stylesheet" href="/style.css">
+
 </head>
 <body>
-    <div id="country-details"></div>
-    <div id="map"></div>
+    <div id="country-container">
+        <h1 id="country-name"></h1>
+        <img id="country-flag" alt="Country Flag" />
+        <p id="country-description"></p>
+        <p><strong>Population:</strong> <span id="country-population"></span></p>
+        <p><strong>Region:</strong> <span id="country-region"></span></p>
+        <p><strong>Subregion:</strong> <span id="country-subregion"></span></p>
+        <p><strong>Capital:</strong> <span id="country-capital"></span></p>
+        <div id="map"></div> <!-- Aquí insertaremos el mapa -->
+    </div>
 </body>
 </html>

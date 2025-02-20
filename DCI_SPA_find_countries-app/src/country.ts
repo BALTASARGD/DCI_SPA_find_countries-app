@@ -1,35 +1,36 @@
-import * as L from 'leaflet';
-
-const API_URL = "https://restcountries.com/v3.1/alpha/";
-
 async function loadCountryDetails() {
-    const params = new URLSearchParams(window.location.search);
-    const countryCode = params.get("code");
+    // Obtener el código del país desde la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const countryCode = urlParams.get("code");
 
-    if (!countryCode) return;
+    if (!countryCode) {
+        console.error("Error: No country code found in URL.");
+        document.getElementById("country-container")!.innerHTML = "<p>Error: No country code found.</p>";
+        return;
+    }
 
-    const res = await fetch(API_URL + countryCode);
-    const [country]: [{ name: { common: string }, capital: string[], population: number, region: string, flags: { png: string }, currencies: { [key: string]: { name: string } }, latlng: [number, number] }] = await res.json();
+    try {
+        // Llamar a la API para obtener los detalles del país
+        const response = await fetch(`https://restcountries.com/v3.1/alpha/${countryCode}`);
+        if (!response.ok) throw new Error("Failed to fetch country data");
 
-    document.body.style.backgroundImage = `url(${country.flags.png})`;
-    document.body.style.backgroundSize = "cover";
+        const data = await response.json();
+        const country = data[0];
 
-    document.getElementById("country-details")!.innerHTML = `
-        <h1>${country.name.common}</h1>
-        <p>Capital: ${country.capital[0]}</p>
-        <p>Population: ${country.population.toLocaleString()}</p>
-        <p>Region: ${country.region}</p>
-        <p>Currency: ${Object.values(country.currencies)[0].name}</p>
-        <div id="map"></div>
-    `;
+        // Insertar los datos en el HTML
+        document.getElementById("country-name")!.textContent = country.name.common;
+        document.getElementById("country-flag")!.setAttribute("src", country.flags.png);
+        document.getElementById("country-description")!.textContent = country.name.official;
+        document.getElementById("country-population")!.textContent = country.population.toLocaleString();
+        document.getElementById("country-region")!.textContent = country.region;
+        document.getElementById("country-subregion")!.textContent = country.subregion;
+        document.getElementById("country-capital")!.textContent = country.capital ? country.capital[0] : "No capital";
 
-    loadMap(country.latlng[0], country.latlng[1]);
+    } catch (error) {
+        console.error("Error loading country details:", error);
+        document.getElementById("country-container")!.innerHTML = "<p>Failed to load country details.</p>";
+    }
 }
 
-function loadMap(lat: number, lng: number) {
-    const map = L.map("map").setView([lat, lng], 5);
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
-    L.marker([lat, lng]).addTo(map);
-}
-
-loadCountryDetails();
+// Ejecutar cuando la página cargue
+document.addEventListener("DOMContentLoaded", loadCountryDetails);
