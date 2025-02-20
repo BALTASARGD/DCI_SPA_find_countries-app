@@ -1,52 +1,57 @@
-async function fetchCountries() {
-    try {
-        // Llamar a la API para obtener la lista de países
-        const response = await fetch("https://restcountries.com/v3.1/all");
-        if (!response.ok) throw new Error("Failed to fetch countries");
+import { getCountries } from './api'; // Suponiendo que tienes una función para obtener países de tu API
+import "./style.css";
 
-        const countries = await response.json();
+// Función para cargar países al cargar la página
+document.addEventListener('DOMContentLoaded', () => {
+  const searchInput = document.getElementById('search') as HTMLInputElement;
+  const continentSelect = document.getElementById('continent-filter') as HTMLSelectElement;
 
-        // Obtener el contenedor donde vamos a mostrar la lista de países
-        const countriesContainer = document.getElementById("countries-container");
+  // Llamar a la función para obtener países
+  fetchCountries();
 
-        if (!countriesContainer) {
-            console.error("Countries container not found.");
-            return;
-        }
+  // Filtrar por búsqueda
+  searchInput.addEventListener('input', () => {
+    fetchCountries(searchInput.value, continentSelect.value);
+  });
 
-        // Limpiar el contenedor
-        countriesContainer.innerHTML = "";
+  // Filtrar por continente
+  continentSelect.addEventListener('change', () => {
+    fetchCountries(searchInput.value, continentSelect.value);
+  });
+});
 
-        // Renderizar cada país en la lista
-        countries.forEach((country: any) => {
-            const countryDiv = document.createElement("div");
-            countryDiv.classList.add("country");
+// Obtener países de la API
+async function fetchCountries(searchTerm: string = '', continent: string = '') {
+  const countriesContainer = document.getElementById('countries-container');
+  if (!countriesContainer) return;
 
-            // Asegurarnos de que el país tiene los datos que necesitamos
-            const flag = country.flags ? country.flags.png : "default-flag.png";
-            const population = country.population ? country.population : "N/A";
-            const region = country.region ? country.region : "N/A";
-            const subregion = country.subregion ? country.subregion : "N/A";
-            const capital = country.capital ? country.capital[0] : "N/A";
+  try {
+    const countries = await getCountries(continent);
+    
+    // Filtrar por nombre
+    const filteredCountries = countries.filter(country =>
+      country.name.common.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
-            // Crear el contenido HTML para cada país
-            countryDiv.innerHTML = `
-                <h2>${country.name.common}</h2>
-                <img src="${flag}" alt="Flag of ${country.name.common}" />
-                <p><strong>Region:</strong> ${region}</p>
-                <p><strong>Population:</strong> ${population.toLocaleString()}</p>
-                <p><strong>Subregion:</strong> ${subregion}</p>
-                <p><strong>Capital:</strong> ${capital}</p>
-                <a href="/country.html?code=${country.cca3}">View Details</a>
-            `;
+    // Mostrar los países
+    countriesContainer.innerHTML = ''; // Limpiar contenido actual
 
-            // Añadir el país al contenedor
-            countriesContainer.appendChild(countryDiv);
-        });
-    } catch (error) {
-        console.error("Error fetching countries:", error);
-    }
+    filteredCountries.forEach(country => {
+      const countryDiv = document.createElement('div');
+      countryDiv.classList.add('country');
+      
+      countryDiv.innerHTML = `
+        <h2>${country.name.common}</h2>
+        <img src="${country.flags.png}" alt="Flag of ${country.name.common}" />
+        <p><strong>Region:</strong> ${country.region}</p>
+        <p><strong>Population:</strong> ${country.population.toLocaleString()}</p>
+        <p><strong>Capital:</strong> ${country.capital ? country.capital[0] : 'N/A'}</p>
+        <button onclick="location.href='/country.html?code=${country.cca3}'">View Details</button>
+      `;
+      countriesContainer.appendChild(countryDiv);
+    });
+    
+  } catch (error) {
+    console.error('Error fetching countries:', error);
+  }
 }
-
-// Llamar a la función cuando la página cargue
-document.addEventListener("DOMContentLoaded", fetchCountries);

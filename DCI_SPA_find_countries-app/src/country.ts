@@ -1,18 +1,18 @@
+import L from "leaflet";
+
 async function loadCountryDetails() {
-    // Obtener el código del país desde la URL
     const urlParams = new URLSearchParams(window.location.search);
     const countryCode = urlParams.get("code");
 
     if (!countryCode) {
-        console.error("Error: No country code found in URL.");
-        document.getElementById("country-container")!.innerHTML = "<p>Error: No country code found.</p>";
+        console.error("Error: No se encontró el código del país en la URL.");
+        document.getElementById("country-container")!.innerHTML = "<p>Error: No se encontró el código del país.</p>";
         return;
     }
 
     try {
-        // Llamar a la API para obtener los detalles del país
         const response = await fetch(`https://restcountries.com/v3.1/alpha/${countryCode}`);
-        if (!response.ok) throw new Error("Failed to fetch country data");
+        if (!response.ok) throw new Error("Error al obtener los datos del país");
 
         const data = await response.json();
         const country = data[0];
@@ -24,13 +24,23 @@ async function loadCountryDetails() {
         document.getElementById("country-population")!.textContent = country.population.toLocaleString();
         document.getElementById("country-region")!.textContent = country.region;
         document.getElementById("country-subregion")!.textContent = country.subregion;
-        document.getElementById("country-capital")!.textContent = country.capital ? country.capital[0] : "No capital";
+        document.getElementById("country-capital")!.textContent = country.capital ? country.capital[0] : "Sin capital";
+
+        // Inicializar el mapa
+        const map = L.map("map").setView([country.latlng[0], country.latlng[1]], 5); // usa las coordenadas del país
+
+        // Añadir el mapa base de OpenStreetMap
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+
+        // Añadir un marcador en el mapa
+        L.marker([country.latlng[0], country.latlng[1]]).addTo(map)
+            .bindPopup(`<b>${country.name.common}</b><br>${country.capital ? country.capital[0] : "Sin capital"}`)
+            .openPopup();
 
     } catch (error) {
-        console.error("Error loading country details:", error);
-        document.getElementById("country-container")!.innerHTML = "<p>Failed to load country details.</p>";
+        console.error("Error al cargar los detalles del país:", error);
+        document.getElementById("country-container")!.innerHTML = "<p>Error al cargar los detalles del país.</p>";
     }
 }
 
-// Ejecutar cuando la página cargue
 document.addEventListener("DOMContentLoaded", loadCountryDetails);

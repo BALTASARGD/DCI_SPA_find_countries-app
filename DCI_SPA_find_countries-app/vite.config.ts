@@ -1,8 +1,12 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  base: '/my-app/',
-  build: {
-    outDir: 'dist'
-  }
+  server: {
+    port: 5173, // Asegúrate de que este es el puerto correcto
+  },
+  resolve: {
+    alias: {
+      "@": "/src", // Opcional, pero útil si usas importaciones absolutas
+    },
+  },
 });
