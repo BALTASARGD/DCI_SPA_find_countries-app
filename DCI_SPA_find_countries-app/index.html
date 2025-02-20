@@ -1,13 +1,23 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + TS</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content= "width=device-width, initial-scale=1.0">
+    <title>Country List</title>
+    <script defer src="/src/main.ts"></script>
+    <link rel="stylesheet" href="/src/styles.css">
+</head>
+<body>
+    <h1>🌍 Countries of the World</h1>
+    <input type="text" id="search" placeholder="Search for a country...">
+    <select id="continent-filter">
+        <option value="">All Continents</option>
+        <option value="Africa">Africa</option>
+        <option value="Americas">Americas</option>
+        <option value="Asia">Asia</option>
+        <option value="Europe">Europe</option>
+        <option value="Oceania">Oceania</option>
+    </select>
+    <div id="country-list"></div>
+</body>
 </html>
