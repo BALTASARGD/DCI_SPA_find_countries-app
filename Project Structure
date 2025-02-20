@@ -1,0 +1,11 @@
+/my-app
+│── /public
+│   ├── country.html
+│── /src
+│   ├── main.ts
+│   ├── country.ts
+│   ├── styles.css
+│── index.html
+│── package.json
+│── tsconfig.json
+│── vite.config.ts
