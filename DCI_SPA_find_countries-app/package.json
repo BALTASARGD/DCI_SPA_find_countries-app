@@ -9,12 +9,14 @@
     "serve": "vite preview"
   },
   "devDependencies": {
+    "@types/axios": "^0.9.36",
     "typescript": "~5.7.2",
     "vite": "^6.1.0"
   },
   "dependencies": {
-    "@types/axios": "^0.9.36",
+    "@types/leaflet": "^1.9.16",
     "axios": "^1.7.9",
+    "leaflet": "^1.9.4",
     "tailwindcss": "^4.0.7"
   }
 }
