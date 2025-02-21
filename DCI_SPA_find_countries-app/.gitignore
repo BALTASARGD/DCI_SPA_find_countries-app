@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+.cache/
+*.cache
+.cache/google-chrome-unstable/
