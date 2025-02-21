@@ -16,16 +16,20 @@
         <h1 id="country-name" class="text-6xl text-blue-900 font-bold"></h1>
         <img id="country-flag" alt="Bandera del País" class="w-24 h-16 object-cover rounded-md" />
     </header>
-    <div id="country-container" class="text-center p-5 bg-white shadow-md rounded-md mx-auto max-w-6xl mt-32">
-        <p id="country-description" class="mb-5"></p>
-        <p><strong>Población:</strong> <span id="country-population"></span></p>
-        <p><strong>Región:</strong> <span id="country-region"></span></p>
-        <p><strong>Subregión:</strong> <span id="country-subregion"></span></p>
-        <p><strong>Capital:</strong> <span id="country-capital"></span></p>
-        <div id="map" class="h-96 mt-5"></div> <!-- El mapa se insertará aquí -->
-        <h2 class="text-2xl font-bold mt-10">Imágenes del País</h2>
+    <div id="country-container" class="text-center p-5 bg-white shadow-md rounded-md mx-auto max-w-6xl mt-32 text-blue-900">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div>
+                <p id="country-description" class="mb-5 text-xl text-[#02048b]"></p>
+                <p><strong>Población:</strong> <span id="country-population"></span></p>
+                <p><strong>Región:</strong> <span id="country-region"></span></p>
+                <p><strong>Subregión:</strong> <span id="country-subregion"></span></p>
+                <p><strong>Capital:</strong> <span id="country-capital"></span></p>
+            </div>
+            <div id="map" class="h-96"></div> <!-- El mapa se insertará aquí -->
+        </div>
+        <h2 class="text-2xl font-bold mt-10 text-[#02048b]">Imágenes del País</h2>
         <div id="country-images" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-5"></div>
-        <h2 class="text-2xl font-bold mt-10">Sitios de Interés</h2>
+        <h2 class="text-2xl font-bold mt-10 text-[#02048b]">Sitios de Interés</h2>
         <div id="places-of-interest" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-5"></div>
         <a href="javascript:history.back()" class="back-link inline-block mt-5 text-blue-500 hover:text-blue-700">
             <i class="fas fa-arrow-left text-2xl mr-2"></i> <!-- Icono de flecha hacia atrás de FontAwesome -->

@@ -58,7 +58,7 @@ async function loadCountryDetails() {
 async function loadCountryDescription(countryName: string) {
     try {
         const response = await axios.get(`https://en.wikipedia.org/api/rest_v1/page/summary/${countryName}`);
-        const description = (response.data as { extract: string }).extract;
+        const description = response.data.extract;
 
         document.getElementById("country-description")!.textContent = description;
     } catch (error) {
@@ -69,9 +69,9 @@ async function loadCountryDescription(countryName: string) {
 
 async function loadPlacesOfInterest(countryName: string) {
     const placesOfInterest = [
-        { type: "Alojamiento", icon: "fas fa-hotel" },
-        { type: "Restaurantes", icon: "fas fa-utensils" },
-        { type: "Ocio", icon: "fas fa-theater-masks" }
+        { type: "Alojamiento", icon: "fas fa-hotel", query: "hotels" },
+        { type: "Restaurantes", icon: "fas fa-utensils", query: "restaurants" },
+        { type: "Ocio", icon: "fas fa-theater-masks", query: "entertainment" }
     ];
 
     const placesList = document.getElementById("places-of-interest");
@@ -88,8 +88,13 @@ async function loadPlacesOfInterest(countryName: string) {
             placeTitle.classList.add("text-lg", "font-bold", "mb-1");
             placeTitle.textContent = place.type;
 
-            placeDiv.appendChild(placeIcon);
-            placeDiv.appendChild(placeTitle);
+            const placeLink = document.createElement("a");
+            placeLink.href = `https://www.google.com/search?q=${place.query}+in+${countryName}`;
+            placeLink.target = "_blank";
+            placeLink.appendChild(placeIcon);
+            placeLink.appendChild(placeTitle);
+
+            placeDiv.appendChild(placeLink);
             placesList.appendChild(placeDiv);
         }
     }
