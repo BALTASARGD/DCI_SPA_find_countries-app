@@ -30,6 +30,12 @@ header {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   margin-bottom: 10px;
 }
+center;
+  padding: 20px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+}
 
 header h1 {
   font-size: 6em;
@@ -187,6 +193,217 @@ footer i {
 .back-link:hover {
   color: #0056b3;
 }
+
+.zoom-container {
+  overflow: hidden;
+  position: relative;
+}
+
+.zoom-container img {
+  transition: transform 0.5s ease, width 0.5s ease, height 0.5s ease;
+}
+
+.zoom-container:hover img {
+  transform: scale(1.5); /* Aumentar el zoom a 1.5 veces el tamaño original */
+  width: 50vw; /* Aumentar el ancho al 50% de la ventana */
+  height: auto; /* Mantener la proporción de la altura */
+}
+
+#country-images {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+#country-images img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color: #f9f9f9;
+    background-color: #333;
+  }
+}
+
+header h1 {
+  font-size: 6em;
+  margin-bottom: 20px;
+  color: #02048b;
+}
+
+#search,
+#continent-filter {
+  margin: 10px 0;
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 80%;
+  max-width: 400px;
+}
+
+#countries-container {
+  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  gap: 1rem;
+  width: 100%;
+  padding: 1rem;
+}
+
+.country {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  background-color: #d4d1d1;
+  box-shadow: 0 8px 16px rgba(19, 10, 10, 0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.country:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3);
+}
+
+.country img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  width: 300px;
+  height: 180px;
+  object-fit: cover;
+  margin: 0 auto;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.25s, border-color 0.25s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+  background-color: #f9f9f9;
+  padding: 1rem 0;
+  text-align: center;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+footer p {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #02048b;
+}
+
+footer a {
+  margin: 20px 10px;
+  display: inline-block;
+}
+
+footer i {
+  font-size: 34px;
+  vertical-align: middle;
+  color: #02048b;
+}
+
+#country-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  background-color: #ebe5e5;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+#country-header h1 {
+  font-size: 2.5em;
+  color: #02048b;
+  margin: 0;
+}
+
+#country-header img {
+  width: 100px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+#country-container {
+  text-align: center;
+  padding: 20px;
+}
+
+#country-description {
+  margin-bottom: 20px;
+}
+
+#map {
+  height: 400px;
+  margin-top: 20px;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 20px;
+  font-size: 1.2em;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.back-link i {
+  margin-right: 10px;
+  font-size: 1.5em;
+}
+
+.back-link:hover {
+  color: #0056b3;
+}
+
+#country-images {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+#country-images img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+  transition: transform 0.3s ease; /* Añadir transición para el efecto de zoom */
+}
+
+#country-images img:hover {
+  transform: scale(3); /* Aumentar el tamaño de la imagen al pasar el cursor */
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     color: #f9f9f9;

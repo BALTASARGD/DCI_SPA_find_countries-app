@@ -29,6 +29,9 @@ async function loadCountryDetails() {
         document.getElementById("country-subregion")!.textContent = country.subregion;
         document.getElementById("country-capital")!.textContent = country.capital ? country.capital[0] : "Sin capital";
 
+        // Obtener y mostrar la descripción del país desde Wikipedia
+        await loadCountryDescription(country.name.common);
+
         // Inicializar el mapa
         const map = L.map("map").setView([country.latlng[0], country.latlng[1]], 5); // usa las coordenadas del país
 
@@ -49,6 +52,18 @@ async function loadCountryDetails() {
     } catch (error) {
         console.error("Error al cargar los detalles del país:", error);
         document.getElementById("country-container")!.innerHTML = "<p>Error al cargar los detalles del país.</p>";
+    }
+}
+
+async function loadCountryDescription(countryName: string) {
+    try {
+        const response = await axios.get(`https://en.wikipedia.org/api/rest_v1/page/summary/${countryName}`);
+        const description = (response.data as { extract: string }).extract;
+
+        document.getElementById("country-description")!.textContent = description;
+    } catch (error) {
+        console.error("Error al cargar la descripción del país:", error);
+        document.getElementById("country-description")!.innerHTML = "<p>Error al cargar la descripción del país.</p>";
     }
 }
 
@@ -83,7 +98,7 @@ async function loadPlacesOfInterest(countryName: string) {
 async function loadCountryImages(countryName: string) {
     try {
         const response = await axios.get(`https://api.unsplash.com/search/photos?query=${countryName}&client_id=${UNSPLASH_ACCESS_KEY}`);
-        const images = (response.data as { results: any[] }).results;
+        const images = (response.data as { results: any[] }).results.slice(0, 6); // Limitar a las primeras 6 imágenes
 
         const imagesContainer = document.getElementById("country-images");
         if (imagesContainer) {
