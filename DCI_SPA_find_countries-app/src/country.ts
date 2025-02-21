@@ -1,4 +1,5 @@
 import L from "leaflet";
+import axios from "axios";
 
 async function loadCountryDetails() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -37,9 +38,64 @@ async function loadCountryDetails() {
             .bindPopup(`<b>${country.name.common}</b><br>${country.capital ? country.capital[0] : "Sin capital"}`)
             .openPopup();
 
+        // Cargar sitios de interés
+        loadPlacesOfInterest(country.name.common);
+
+        // Cargar imágenes del país
+        loadCountryImages(country.name.common);
+
     } catch (error) {
         console.error("Error al cargar los detalles del país:", error);
         document.getElementById("country-container")!.innerHTML = "<p>Error al cargar los detalles del país.</p>";
+    }
+}
+
+async function loadPlacesOfInterest(countryName: string) {
+    const placesOfInterest = [
+        { type: "Alojamiento", icon: "fas fa-hotel" },
+        { type: "Restaurantes", icon: "fas fa-utensils" },
+        { type: "Ocio", icon: "fas fa-theater-masks" }
+    ];
+
+    const placesList = document.getElementById("places-of-interest");
+    if (placesList) {
+        placesList.innerHTML = "";
+        for (const place of placesOfInterest) {
+            const placeDiv = document.createElement("div");
+            placeDiv.classList.add("place", "bg-gray-100", "p-4", "rounded-md", "shadow-md", "text-center");
+
+            const placeIcon = document.createElement("i");
+            placeIcon.className = `${place.icon} text-4xl mb-2 text-blue-500`;
+
+            const placeTitle = document.createElement("h3");
+            placeTitle.classList.add("text-lg", "font-bold", "mb-1");
+            placeTitle.textContent = place.type;
+
+            placeDiv.appendChild(placeIcon);
+            placeDiv.appendChild(placeTitle);
+            placesList.appendChild(placeDiv);
+        }
+    }
+}
+
+async function loadCountryImages(countryName: string) {
+    try {
+        const response = await axios.get(`https://api.unsplash.com/search/photos?query=${countryName}&client_id=a13zuW_gUniDQEL7D1mIQC5JOfug00Bp-2YUF-HWMjM`);
+        const images = (response.data as { results: any[] }).results;
+
+        const imagesContainer = document.getElementById("country-images");
+        if (imagesContainer) {
+            imagesContainer.innerHTML = "";
+            images.forEach((image: any) => {
+                const imgElement = document.createElement("img");
+                imgElement.src = image.urls.small;
+                imgElement.alt = image.alt_description;
+                imgElement.classList.add("w-full", "h-auto", "rounded-md");
+                imagesContainer.appendChild(imgElement);
+            });
+        }
+    } catch (error) {
+        console.error("Error al cargar las imágenes del país:", error);
     }
 }
 

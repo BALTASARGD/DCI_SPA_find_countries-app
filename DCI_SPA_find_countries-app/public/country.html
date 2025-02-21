@@ -5,23 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Country Details</title>
     <script defer type="module" src="/src/country.ts"></script>
-    <link rel="stylesheet" href="/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-<body>
-    <div id="country-container">
-        <h1 id="country-name"></h1>
-        <img id="country-flag" alt="Country Flag" />
-        <p id="country-description"></p>
+<body class="bg-gray-100 text-gray-900">
+    <header id="country-header" class="fixed top-0 left-0 w-full flex items-center justify-center gap-5 p-5 bg-gray-100 shadow-md z-50">
+        <h1 id="country-name" class="text-6xl text-blue-900 font-bold"></h1>
+        <img id="country-flag" alt="Country Flag" class="w-24 h-16 object-cover rounded-md" />
+    </header>
+    <div id="country-container" class="text-center p-5 bg-white shadow-md rounded-md mx-auto max-w-4xl mt-32">
+        <p id="country-description" class="mb-5"></p>
         <p><strong>Population:</strong> <span id="country-population"></span></p>
         <p><strong>Region:</strong> <span id="country-region"></span></p>
         <p><strong>Subregion:</strong> <span id="country-subregion"></span></p>
         <p><strong>Capital:</strong> <span id="country-capital"></span></p>
-        <div id="map" style="height: 400px;"></div> <!-- Map will be inserted here -->
-        <a href="javascript:history.back()" class="back-link">
-            <i class="fas fa-arrow-left"></i> <!-- FontAwesome back arrow icon -->
+        <div id="map" class="h-96 mt-5"></div> <!-- Map will be inserted here -->
+        <h2 class="text-2xl font-bold mt-10">Sitios de Interés</h2>
+        <div id="places-of-interest" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-5"></div>
+        <h2 class="text-2xl font-bold mt-10">Imágenes del País</h2>
+        <div id="country-images" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-5"></div>
+        <a href="javascript:history.back()" class="back-link inline-block mt-5 text-blue-500 hover:text-blue-700">
+            <i class="fas fa-arrow-left text-2xl mr-2"></i> <!-- FontAwesome back arrow icon -->
+            Volver
         </a>
     </div>
 </body>

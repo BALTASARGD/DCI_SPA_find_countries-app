@@ -133,23 +133,37 @@ footer i {
   color: #02048b;
 }
 
-/* Estilos para Country Details (country.html) */
+#country-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  background-color: #ebe5e5;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+#country-header h1 {
+  font-size: 2.5em;
+  color: #02048b;
+  margin: 0;
+}
+
+#country-header img {
+  width: 100px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
 #country-container {
   text-align: center;
   padding: 20px;
 }
 
-#country-name {
-  font-size: 2.5em;
-  color: #007bff;
+#country-description {
   margin-bottom: 20px;
-}
-
-#country-flag {
-  width: 300px;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 4px;
 }
 
 #map {
@@ -167,13 +181,12 @@ footer i {
 
 .back-link i {
   margin-right: 10px;
-  font-size: 3.2em;
+  font-size: 1.5em;
 }
 
 .back-link:hover {
   color: #0056b3;
 }
-
 @media (prefers-color-scheme: dark) {
   :root {
     color: #f9f9f9;
