@@ -16,7 +16,9 @@
   },
   "dependencies": {
     "@types/leaflet": "^1.9.16",
+    "@types/swiper": "^5.4.3",
     "axios": "^1.7.9",
-    "leaflet": "^1.9.4"
+    "leaflet": "^1.9.4",
+    "swiper": "^11.2.4"
   }
 }
