@@ -1,6 +1,8 @@
 import L from "leaflet";
 import axios from "axios";
 
+const UNSPLASH_ACCESS_KEY = import.meta.env.VITE_UNSPLASH_ACCESS_KEY;
+
 async function loadCountryDetails() {
     const urlParams = new URLSearchParams(window.location.search);
     const countryCode = urlParams.get("code");
@@ -80,7 +82,7 @@ async function loadPlacesOfInterest(countryName: string) {
 
 async function loadCountryImages(countryName: string) {
     try {
-        const response = await axios.get(`https://api.unsplash.com/search/photos?query=${countryName}&client_id=a13zuW_gUniDQEL7D1mIQC5JOfug00Bp-2YUF-HWMjM`);
+        const response = await axios.get(`https://api.unsplash.com/search/photos?query=${countryName}&client_id=${UNSPLASH_ACCESS_KEY}`);
         const images = (response.data as { results: any[] }).results;
 
         const imagesContainer = document.getElementById("country-images");

@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite';
+import dotenv from 'dotenv';
 
 export default defineConfig({
   server: {

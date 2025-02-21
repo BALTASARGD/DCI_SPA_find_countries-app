@@ -26,3 +26,6 @@ dist-ssr
 .cache/
 *.cache
 .cache/google-chrome-unstable/
+
+# Environment variables
+.env
