@@ -12,3 +12,7 @@ This web application allows users to search for and view details about different
 - **main.ts**: TypeScript file that handles the logic for the main page.  
 - **country.ts**: TypeScript file that manages the logic for the country details page.  
 - **api.ts**: TypeScript file containing functions to interact with the Rest Countries API.  
+
+## Live Demo
+You can view the live demo of the application [here](https://baltasargd.github.io/DCI_SPA_find_countries-).
+
