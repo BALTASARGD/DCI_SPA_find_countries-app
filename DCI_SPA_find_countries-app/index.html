@@ -1,45 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Country List</title>
+    <title>🌍 Country List</title>
     <link rel="icon" href="./public/favicon.ico" type="image/x-icon" />
-   
     <script type="module" src="/src/main.ts"></script>
-    <link rel="stylesheet" href="/style.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
-  </head>
-  <body>
-    <header>
-      <h1>🌍 Countries of the World</h1>
-      <div class="search-container">
-        <input type="text" id="search" placeholder="Search for a country..." />
-        <select id="continent-filter">
-          <option value="">All Continents</option>
-          <option value="Africa">Africa</option>
-          <option value="Americas">Americas</option>
-          <option value="Asia">Asia</option>
-          <option value="Europe">Europe</option>
-          <option value="Oceania">Oceania</option>
-        </select>
-      </div>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/src/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+<body class="bg-gray-200">
+    <header class="top-0 left-0 w-full flex flex-col items-center justify-center gap-4 p-5 bg-gray-100 shadow-md z-50 h-64 md:flex-row md:gap-10 md:p-10">
+        <h1 class="text-4xl text-blue-900 font-bold md:text-6xl">🌍 Countries of the World</h1>
+        <div class="search-container flex flex-col items-center gap-2 md:flex-row md:gap-4">
+            <input type="text" id="search" placeholder="Search for a country..." class="p-2 border rounded w-full md:w-auto" />
+            <select id="continent-filter" class="p-2 border rounded w-full md:w-auto">
+                <option value="">All Continents</option>
+                <option value="Africa">Africa</option>
+                <option value="Americas">Americas</option>
+                <option value="Asia">Asia</option>
+                <option value="Europe">Europe</option>
+                <option value="Oceania">Oceania</option>
+            </select>
+        </div>
     </header>
-    <div id="countries-container"></div>
-    <footer>
-      <p>by Balta Garcia 2025</p>
-      <p>&copy; 2025 My Application. All rights reserved.</p><a href="https://github.com/your-github-username" target="_blank">
-        <i class="fab fa-github"></i>
-      </a>
-      <a
-        href="https://www.linkedin.com/in/your-linkedin-username/"
-        target="_blank"
-      >
-        <i class="fab fa-linkedin"></i>
-      </a>
+    <div id="countries-container" class="p-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5"></div>
+    <footer class="w-full mt-10 text-center">
+        <p>by Balta Garcia 2025</p>
+        <p>&copy; 2025 My Application. All rights reserved.</p>
+        <a href="https://github.com/your-github-username" target="_blank">
+            <i class="fab fa-github"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/your-linkedin-username/" target="_blank">
+            <i class="fab fa-linkedin"></i>
+        </a>
     </footer>
-  </body>
+</body>
 </html>
