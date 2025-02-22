@@ -3,7 +3,6 @@
   line-height: 1.5;
   font-weight: 400;
   color-scheme: light;
-
   background-color: #f9f9f9;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -30,7 +29,7 @@ header {
 }
 
 header h1 {
-  font-size: 6em;
+  font-size: 4em;
   margin-bottom: 20px;
   color: #02048b;
 }
@@ -187,16 +186,16 @@ footer i {
 }
 
 #country-container {
-  color: #333; /* Ajustar el color del texto */
+  color: #333;
 }
 
 #country-description {
-  font-size: 1.25rem; /* Aumentar el tamaño del texto de la descripción */
-  color: #02048b; /* Color de la descripción */
+  font-size: 1.25rem;
+  color: #02048b;
 }
 
 h2 {
-  color: #02048b; /* Color de los encabezados h2 */
+  color: #02048b;
 }
 
 #country-images {
@@ -210,11 +209,11 @@ h2 {
   height: auto;
   border-radius: 8px;
   object-fit: cover;
-  transition: transform 0.3s ease; /* Añadir transición para el efecto de zoom */
+  transition: transform 0.3s ease;
 }
 
 #country-images img:hover {
-  transform: scale(2); /* Aumentar el tamaño de la imagen al pasar el cursor */
+  transform: scale(2);
 }
 
 #places-of-interest .place {
@@ -225,7 +224,7 @@ h2 {
 }
 
 #places-of-interest .place i {
-  font-size: 3rem; /* Aumentar el tamaño de los iconos */
+  font-size: 3rem;
   margin-bottom: 10px;
 }
 
