@@ -1,26 +1,21 @@
-import { getCountries } from './api'; // Suponiendo que tienes una función para obtener países de tu API
+import { getCountries } from './api';
 import "./style.css";
 
-// Función para cargar países al cargar la página
 document.addEventListener('DOMContentLoaded', () => {
   const searchInput = document.getElementById('search') as HTMLInputElement;
   const continentSelect = document.getElementById('continent-filter') as HTMLSelectElement;
 
-  // Llamar a la función para obtener países
   fetchCountries();
 
-  // Filtrar por búsqueda
   searchInput.addEventListener('input', () => {
     fetchCountries(searchInput.value, continentSelect.value);
   });
 
-  // Filtrar por continente
   continentSelect.addEventListener('change', () => {
     fetchCountries(searchInput.value, continentSelect.value);
   });
 });
 
-// Obtener países de la API
 async function fetchCountries(searchTerm: string = '', continent: string = '') {
   const countriesContainer = document.getElementById('countries-container');
   if (!countriesContainer) return;
@@ -28,13 +23,11 @@ async function fetchCountries(searchTerm: string = '', continent: string = '') {
   try {
     const countries = await getCountries(continent);
     
-    // Filtrar por nombre
     const filteredCountries = countries.filter(country =>
       country.name.common.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    // Mostrar los países
-    countriesContainer.innerHTML = ''; // Limpiar contenido actual
+    countriesContainer.innerHTML = '';
 
     filteredCountries.forEach(country => {
       const countryDiv = document.createElement('div');

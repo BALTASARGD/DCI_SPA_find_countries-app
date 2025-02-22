@@ -8,50 +8,43 @@ async function loadCountryDetails() {
     const countryCode = urlParams.get("code");
 
     if (!countryCode) {
-        console.error("Error: No se encontró el código del país en la URL.");
-        document.getElementById("country-container")!.innerHTML = "<p>Error: No se encontró el código del país.</p>";
+        console.error("Error: Country code not found in URL.");
+        document.getElementById("country-container")!.innerHTML = "<p>Error: Country code not found.</p>";
         return;
     }
 
     try {
         const response = await fetch(`https://restcountries.com/v3.1/alpha/${countryCode}`);
-        if (!response.ok) throw new Error("Error al obtener los datos del país");
+        if (!response.ok) throw new Error("Error fetching country data");
 
         const data = await response.json();
         const country = data[0];
 
-        // Insertar los datos en el HTML
         document.getElementById("country-name")!.textContent = country.name.common;
         document.getElementById("country-flag")!.setAttribute("src", country.flags.png);
         document.getElementById("country-description")!.textContent = country.name.official;
         document.getElementById("country-population")!.textContent = country.population.toLocaleString();
         document.getElementById("country-region")!.textContent = country.region;
         document.getElementById("country-subregion")!.textContent = country.subregion;
-        document.getElementById("country-capital")!.textContent = country.capital ? country.capital[0] : "Sin capital";
+        document.getElementById("country-capital")!.textContent = country.capital ? country.capital[0] : "No capital";
 
-        // Obtener y mostrar la descripción del país desde Wikipedia
         await loadCountryDescription(country.name.common);
 
-        // Inicializar el mapa
-        const map = L.map("map").setView([country.latlng[0], country.latlng[1]], 5); // usa las coordenadas del país
+        const map = L.map("map").setView([country.latlng[0], country.latlng[1]], 5);
 
-        // Añadir el mapa base de OpenStreetMap
         L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
 
-        // Añadir un marcador en el mapa
         L.marker([country.latlng[0], country.latlng[1]]).addTo(map)
-            .bindPopup(`<b>${country.name.common}</b><br>${country.capital ? country.capital[0] : "Sin capital"}`)
+            .bindPopup(`<b>${country.name.common}</b><br>${country.capital ? country.capital[0] : "No capital"}`)
             .openPopup();
 
-        // Cargar sitios de interés
         loadPlacesOfInterest(country.name.common);
 
-        // Cargar imágenes del país
         loadCountryImages(country.name.common);
 
     } catch (error) {
-        console.error("Error al cargar los detalles del país:", error);
-        document.getElementById("country-container")!.innerHTML = "<p>Error al cargar los detalles del país.</p>";
+        console.error("Error loading country details:", error);
+        document.getElementById("country-container")!.innerHTML = "<p>Error loading country details.</p>";
     }
 }
 
@@ -62,16 +55,16 @@ async function loadCountryDescription(countryName: string) {
 
         document.getElementById("country-description")!.textContent = description;
     } catch (error) {
-        console.error("Error al cargar la descripción del país:", error);
-        document.getElementById("country-description")!.innerHTML = "<p>Error al cargar la descripción del país.</p>";
+        console.error("Error loading country description:", error);
+        document.getElementById("country-description")!.innerHTML = "<p>Error loading country description.</p>";
     }
 }
 
 async function loadPlacesOfInterest(countryName: string) {
     const placesOfInterest = [
-        { type: "Alojamiento", icon: "fas fa-hotel", query: "hotels" },
-        { type: "Restaurantes", icon: "fas fa-utensils", query: "restaurants" },
-        { type: "Ocio", icon: "fas fa-theater-masks", query: "entertainment" }
+        { type: "Accommodation", icon: "fas fa-hotel", query: "hotels" },
+        { type: "Restaurants", icon: "fas fa-utensils", query: "restaurants" },
+        { type: "Entertainment", icon: "fas fa-theater-masks", query: "entertainment" }
     ];
 
     const placesList = document.getElementById("places-of-interest");
@@ -103,7 +96,7 @@ async function loadPlacesOfInterest(countryName: string) {
 async function loadCountryImages(countryName: string) {
     try {
         const response = await axios.get(`https://api.unsplash.com/search/photos?query=${countryName}&client_id=${UNSPLASH_ACCESS_KEY}`);
-        const images = (response.data as { results: any[] }).results.slice(0, 6); // Limitar a las primeras 6 imágenes
+        const images = (response.data as { results: any[] }).results.slice(0, 6);
 
         const imagesContainer = document.getElementById("country-images");
         if (imagesContainer) {
@@ -117,7 +110,7 @@ async function loadCountryImages(countryName: string) {
             });
         }
     } catch (error) {
-        console.error("Error al cargar las imágenes del país:", error);
+        console.error("Error loading country images:", error);
     }
 }
 
