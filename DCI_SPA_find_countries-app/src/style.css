@@ -28,11 +28,6 @@ header {
   margin-bottom: 10px;
 }
 
-header h1 {
-  font-size: 4em;
-  margin-bottom: 20px;
-  color: #02048b;
-}
 
 #search,
 #continent-filter {
@@ -231,4 +226,7 @@ h2 {
 #places-of-interest .place a {
   text-decoration: none;
   color: inherit;
+}
+.text-blue-custom {
+  color: #02048b;
 }
